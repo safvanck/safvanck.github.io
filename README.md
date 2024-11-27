@@ -35,7 +35,9 @@ Ensure the following tools are available in your development environment before 
 - **npm** (version >=8.x) or **yarn** (version >=1.22.x)
 - **C Compiler**
 
+### 
+
 <details>
-  <summary>Click to see more</summary>
+  <summary><h2>Click to see more</h2></summary>
   <p> Here is the link to the final repository of the project (Private): [GitHub Link](https://github.com/safvanck/SafvanDotCom-Website-Final/) </p>
 </details>
