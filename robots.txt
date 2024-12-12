@@ -1,0 +1,20 @@
+# Allow all search engines to access everything except private or sensitive directories
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /test/
+
+# Prevent crawling of dynamically generated URLs
+Disallow: /*?*
+
+# Allow specific files or paths if necessary
+Allow: /public/
+Allow: /
+Allow: /app/
+Allow: /app.index.html
+Allow: /app/contact.html
+Allow: /app/sitemap.xml
+
+# Specify the location of the XML sitemap
+Sitemap: https://www.safvan.com/Sitemap.xml
