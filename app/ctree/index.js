@@ -72,7 +72,7 @@ series.nodes.template.setup = function(target) {
 async function loadData() {
             try {
                 // Fetch the JSON data
-                const response = await fetch('http://0.0.0.0:8000/ctree/data.json');
+                const response = await fetch('http://safvan.com/app/ctree/data.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
