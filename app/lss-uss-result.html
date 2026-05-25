@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>Kerala LSS/USS Result Portal</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
 
@@ -25,7 +29,7 @@ body{
 }
 
 .container{
-    max-width:950px;
+    max-width:1000px;
     margin:auto;
 }
 
@@ -35,7 +39,7 @@ body{
 }
 
 .header h1{
-    font-size:38px;
+    font-size:40px;
     font-weight:700;
     margin-bottom:10px;
 }
@@ -72,7 +76,7 @@ label{
 
 input,
 select{
-    height:52px;
+    height:54px;
     border:none;
     border-radius:14px;
     padding:0 16px;
@@ -135,113 +139,6 @@ button:hover{
     }
 }
 
-.result-wrapper{
-    margin-top:40px;
-    display:none;
-}
-
-.certificate{
-    background:#fff;
-    color:#111827;
-    border-radius:24px;
-    overflow:hidden;
-    position:relative;
-    box-shadow:0 25px 50px rgba(0,0,0,0.4);
-}
-
-.certificate::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border:14px solid #0f172a;
-    pointer-events:none;
-}
-
-.cert-header{
-    background:linear-gradient(135deg,#0f172a,#1d4ed8);
-    color:white;
-    padding:40px;
-    text-align:center;
-}
-
-.cert-header h2{
-    font-size:36px;
-    margin-bottom:8px;
-}
-
-.cert-header p{
-    opacity:0.9;
-}
-
-.cert-body{
-    padding:40px;
-}
-
-.info-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:22px;
-    margin-top:25px;
-}
-
-.info-box{
-    background:#f8fafc;
-    border-radius:16px;
-    padding:18px;
-    border:1px solid #e2e8f0;
-}
-
-.info-title{
-    font-size:13px;
-    color:#64748b;
-    margin-bottom:8px;
-}
-
-.info-value{
-    font-size:18px;
-    font-weight:600;
-}
-
-.score-box{
-    margin-top:35px;
-    text-align:center;
-    padding:30px;
-    border-radius:18px;
-    background:linear-gradient(135deg,#eff6ff,#dbeafe);
-}
-
-.score{
-    font-size:56px;
-    font-weight:700;
-    color:#1d4ed8;
-}
-
-.status{
-    margin-top:16px;
-    display:inline-block;
-    padding:12px 24px;
-    border-radius:999px;
-    font-weight:600;
-    font-size:15px;
-}
-
-.pass{
-    background:#dcfce7;
-    color:#166534;
-}
-
-.fail{
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-.footer-note{
-    margin-top:35px;
-    text-align:center;
-    color:#64748b;
-    font-size:13px;
-}
-
 .error{
     margin-top:20px;
     background:#fee2e2;
@@ -251,18 +148,280 @@ button:hover{
     display:none;
 }
 
+/* CERTIFICATE */
+
+.result-wrapper{
+    margin-top:50px;
+    display:none;
+}
+
+.certificate{
+    position:relative;
+    background:#fffdf7;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.35),
+        inset 0 0 0 2px #d4af37;
+    border:12px solid #f3e2a9;
+    color:#111827;
+}
+
+.certificate::before{
+    content:"";
+    position:absolute;
+    inset:12px;
+    border:2px solid #c9a227;
+    pointer-events:none;
+    border-radius:12px;
+}
+
+.certificate::after{
+    content:" SAFVAN.COM ` SAFVAN.COM ` SAFVAN.COM ";
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(-30deg);
+    font-size:70px;
+    font-weight:700;
+    color:rgba(0,0,0,0.03);
+    white-space:nowrap;
+    pointer-events:none;
+    letter-spacing:4px;
+}
+
+.cert-header{
+    text-align:center;
+    padding:45px 30px 30px;
+    border-bottom:2px dashed #d4af37;
+    background:
+        linear-gradient(
+            to right,
+            #fff7d6,
+            #fffdf7,
+            #fff7d6
+        );
+}
+
+.gov-seal{
+    width:90px;
+    height:90px;
+    margin:auto;
+    margin-bottom:18px;
+    border-radius:50%;
+    border:4px solid #c9a227;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+    background:#fff;
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+}
+
+.cert-header h2{
+    font-size:34px;
+    font-weight:700;
+    color:#7c5a03;
+    margin-bottom:10px;
+    letter-spacing:1px;
+}
+
+.cert-header p{
+    font-size:15px;
+    color:#6b7280;
+    letter-spacing:1px;
+}
+
+.cert-body{
+    padding:45px;
+}
+
+.cert-intro{
+    text-align:center;
+    font-size:18px;
+    line-height:1.8;
+    color:#374151;
+    margin-bottom:35px;
+}
+
+.highlight-name{
+    font-size:34px;
+    font-weight:700;
+    color:#111827;
+    margin:10px 0;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-top:25px;
+}
+
+.info-box{
+    background:#fff;
+    border:1px solid #ead79c;
+    border-left:5px solid #c9a227;
+    border-radius:14px;
+    padding:18px 20px;
+}
+
+.info-title{
+    font-size:13px;
+    color:#7c5a03;
+    margin-bottom:8px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.info-value{
+    font-size:18px;
+    font-weight:600;
+    color:#111827;
+}
+
+.score-section{
+    margin-top:40px;
+    text-align:center;
+}
+
+.score-title{
+    font-size:18px;
+    color:#7c5a03;
+    margin-bottom:15px;
+    letter-spacing:1px;
+}
+
+.score-circle{
+    width:170px;
+    height:170px;
+    margin:auto;
+    border-radius:50%;
+    border:10px solid #d4af37;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(circle,#fffdf7,#fff3c4);
+    box-shadow:
+        inset 0 0 20px rgba(0,0,0,0.06),
+        0 12px 25px rgba(0,0,0,0.15);
+}
+
+.score{
+    font-size:54px;
+    font-weight:700;
+    color:#7c5a03;
+    line-height:1;
+}
+
+.score-label{
+    font-size:14px;
+    margin-top:8px;
+    color:#6b7280;
+    letter-spacing:1px;
+}
+
+.status{
+    margin-top:28px;
+    display:inline-block;
+    padding:14px 32px;
+    border-radius:999px;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.pass{
+    background:#dcfce7;
+    color:#166534;
+    border:2px solid #16a34a;
+}
+
+.fail{
+    background:#fee2e2;
+    color:#991b1b;
+    border:2px solid #dc2626;
+}
+
+.cert-footer{
+    margin-top:50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:20px;
+}
+
+.signature{
+    text-align:center;
+}
+
+.signature-line{
+    width:180px;
+    border-top:2px solid #111827;
+    margin-bottom:10px;
+}
+
+.signature p{
+    font-size:13px;
+    color:#6b7280;
+}
+
+.official-stamp{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    border:6px double #b91c1c;
+    color:#b91c1c;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-weight:700;
+    transform:rotate(-15deg);
+    opacity:0.8;
+    font-size:14px;
+    padding:10px;
+}
+
+.download-btn{
+    margin-top:25px;
+}
+
 @media(max-width:768px){
 
-    .cert-header h2{
-        font-size:28px;
+    .cert-body{
+        padding:28px;
     }
 
     .info-grid{
         grid-template-columns:1fr;
     }
 
+    .highlight-name{
+        font-size:26px;
+    }
+
+    .cert-header h2{
+        font-size:26px;
+    }
+
+    .score-circle{
+        width:140px;
+        height:140px;
+    }
+
     .score{
         font-size:42px;
+    }
+
+    .cert-footer{
+        flex-direction:column;
+        align-items:center;
     }
 }
 
@@ -274,8 +433,13 @@ button:hover{
 <div class="container">
 
     <div class="header">
+
         <h1>Kerala LSS / USS Result Portal</h1>
-        <p>Instant Scholarship Examination Result Verification</p>
+
+        <p>
+            Official Scholarship Examination Verification
+        </p>
+
     </div>
 
     <div class="form-card">
@@ -283,21 +447,38 @@ button:hover{
         <div class="form-grid">
 
             <div class="input-group">
+
                 <label>Examination Type</label>
+
                 <select id="exam_type">
                     <option value="LSSE">LSSE</option>
                     <option value="USSE">USSE</option>
                 </select>
+
             </div>
 
             <div class="input-group">
+
                 <label>Register Number</label>
-                <input type="text" id="regno" placeholder="Enter Register Number">
+
+                <input
+                    type="text"
+                    id="regno"
+                    placeholder="Enter Register Number"
+                >
+
             </div>
 
             <div class="input-group">
+
                 <label>Date of Birth</label>
-                <input type="text" id="dob" placeholder="DD/MM/YYYY">
+
+                <input
+                    type="text"
+                    id="dob"
+                    placeholder="DD/MM/YYYY"
+                >
+
             </div>
 
         </div>
@@ -321,61 +502,155 @@ button:hover{
         <div class="certificate">
 
             <div class="cert-header">
-                <h2 id="examTitle">USS Examination</h2>
-                <p>Official Scholarship Examination Result</p>
+
+                <div class="gov-seal">
+                    🏛
+                </div>
+
+                <h2 id="examTitle">
+                    USS Examination
+                </h2>
+
+                <p>
+                    Government of Kerala • Pareeksha Bhavan
+                </p>
+
             </div>
 
             <div class="cert-body">
 
+                <div class="cert-intro">
+
+                    This is to officially certify that
+
+                    <div
+                        class="highlight-name"
+                        id="candidateName"
+                    >
+                        STUDENT NAME
+                    </div>
+
+                    has appeared for the scholarship examination
+                    and the following result has been published.
+
+                </div>
+
                 <div class="info-grid">
 
                     <div class="info-box">
-                        <div class="info-title">Candidate Name</div>
-                        <div class="info-value" id="candidateName">-</div>
+                        <div class="info-title">
+                            Register Number
+                        </div>
+                        <div
+                            class="info-value"
+                            id="candidateReg"
+                        >
+                            -
+                        </div>
                     </div>
 
                     <div class="info-box">
-                        <div class="info-title">Register Number</div>
-                        <div class="info-value" id="candidateReg">-</div>
+                        <div class="info-title">
+                            Date of Birth
+                        </div>
+                        <div
+                            class="info-value"
+                            id="candidateDob"
+                        >
+                            -
+                        </div>
                     </div>
 
                     <div class="info-box">
-                        <div class="info-title">Date of Birth</div>
-                        <div class="info-value" id="candidateDob">-</div>
+                        <div class="info-title">
+                            Guardian Name
+                        </div>
+                        <div
+                            class="info-value"
+                            id="guardianName"
+                        >
+                            -
+                        </div>
                     </div>
 
                     <div class="info-box">
-                        <div class="info-title">Guardian Name</div>
-                        <div class="info-value" id="guardianName">-</div>
-                    </div>
-
-                    <div class="info-box">
-                        <div class="info-title">Published On</div>
-                        <div class="info-value" id="publishedOn">-</div>
+                        <div class="info-title">
+                            Published On
+                        </div>
+                        <div
+                            class="info-value"
+                            id="publishedOn"
+                        >
+                            -
+                        </div>
                     </div>
 
                 </div>
 
-                <div class="score-box">
-                    <div>Total Score</div>
-                    <div class="score" id="totalMark">0</div>
+                <div class="score-section">
 
-                    <div class="status" id="statusBadge">
+                    <div class="score-title">
+                        TOTAL MARK OBTAINED
+                    </div>
+
+                    <div class="score-circle">
+
+                        <div
+                            class="score"
+                            id="totalMark"
+                        >
+                            0
+                        </div>
+
+                        <div class="score-label">
+                            MARKS
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="status"
+                        id="statusBadge"
+                    >
                         RESULT STATUS
                     </div>
+
                 </div>
 
-                <div class="footer-note">
-                    Kerala Pareeksha Bhavan Scholarship Examination Result
+                <div class="cert-footer">
+
+                    <div class="signature">
+
+                        <div class="signature-line"></div>
+
+                        <p>
+                            Controller of Examinations
+                        </p>
+
+                    </div>
+
+                    <div class="official-stamp">
+                        OFFICIAL VERIFIED RESULT
+                    </div>
+
                 </div>
 
             </div>
 
         </div>
 
+        <button
+            class="download-btn"
+            id="downloadBtn"
+            onclick="downloadCertificate()"
+        >
+            Download Certificate
+        </button>
+
     </div>
 
 </div>
+
 <script>
 
 async function fetchResult(){
@@ -386,12 +661,16 @@ async function fetchResult(){
 
     const loader = document.getElementById('loader');
     const errorBox = document.getElementById('errorBox');
+    const resultWrapper = document.getElementById('resultWrapper');
 
     errorBox.style.display = 'none';
+    resultWrapper.style.display = 'none';
 
     if(!regno || !dob){
 
-        errorBox.innerText = 'Please enter all required fields';
+        errorBox.innerText =
+            'Please enter all required fields';
+
         errorBox.style.display = 'block';
 
         return;
@@ -402,15 +681,15 @@ async function fetchResult(){
     try{
 
         const response = await fetch(
-            "https://bitter-pond-09ff.safvan-ck-oman-flare.workers.dev/",
+            "https://nodeproxy-cdnk.onrender.com/result",
             {
-                method:"POST",
+                method: "POST",
 
-                headers:{
-                    "Content-Type":"application/json"
+                headers: {
+                    "Content-Type": "application/json"
                 },
 
-                body:JSON.stringify({
+                body: JSON.stringify({
                     regno,
                     exam_type,
                     dob
@@ -418,74 +697,107 @@ async function fetchResult(){
             }
         );
 
-        const html = await response.text();
+        const text = await response.text();
 
         loader.style.display = 'none';
 
-        console.log(html);
+        let data;
 
-        if(
-            html.includes('Invalid') ||
-            html.includes('required') ||
-            html.includes('failed') ||
-            html.includes('error')
-        ){
+        try{
 
-            errorBox.innerText = html;
-            errorBox.style.display = 'block';
+            data = JSON.parse(text);
 
-            return;
+        }catch(e){
+
+            if(text.includes("<html") || text.includes("<table")){
+
+                const parser = new DOMParser();
+
+                const doc = parser.parseFromString(
+                    text,
+                    'text/html'
+                );
+
+                const rows = doc.querySelectorAll('tr');
+
+                data = {};
+
+                rows.forEach(row => {
+
+                    const th = row.querySelectorAll('th');
+
+                    if(th.length >= 2){
+
+                        const key =
+                            th[0].innerText.trim();
+
+                        const value =
+                            th[1].innerText.trim();
+
+                        data[key] = value;
+                    }
+                });
+
+            }else{
+
+                errorBox.innerText =
+                    text || 'Invalid response';
+
+                errorBox.style.display = 'block';
+
+                return;
+            }
         }
 
-        const parser = new DOMParser();
-
-        const doc = parser.parseFromString(html,'text/html');
-
-        const rows = doc.querySelectorAll('tr');
-
-        const data = {};
-
-        rows.forEach(row => {
-
-            const th = row.querySelectorAll('th');
-
-            if(th.length >= 2){
-
-                const key = th[0].innerText.trim();
-                const value = th[1].innerText.trim();
-
-                data[key] = value;
-            }
-        });
-
         document.getElementById('examTitle').innerText =
-            data['Examination Type.'] || '-';
+            data['Examination Type.'] ||
+            data.exam_type ||
+            '-';
 
         document.getElementById('candidateName').innerText =
-            data['Name'] || '-';
+            data['Name'] ||
+            data.name ||
+            '-';
 
         document.getElementById('candidateReg').innerText =
-            data['Register No.'] || '-';
+            data['Register No.'] ||
+            data.regno ||
+            '-';
 
         document.getElementById('candidateDob').innerText =
-            data['Date Of Birth'] || '-';
+            data['Date Of Birth'] ||
+            data.dob ||
+            '-';
 
         document.getElementById('guardianName').innerText =
-            data['Name of Guardian'] || '-';
+            data['Name of Guardian'] ||
+            data.guardian ||
+            '-';
 
         document.getElementById('publishedOn').innerText =
-            data['Published On'] || '-';
+            data['Published On'] ||
+            data.published_on ||
+            '-';
 
         document.getElementById('totalMark').innerText =
-            data['Total Mark'] || '0';
+            data['Total Mark'] ||
+            data.total_mark ||
+            '0';
 
-        const status = data['Result Status'] || '';
+        const status =
+            data['Result Status'] ||
+            data.status ||
+            'RESULT PUBLISHED';
 
-        const badge = document.getElementById('statusBadge');
+        const badge =
+            document.getElementById('statusBadge');
 
         badge.innerText = status;
 
-        if(status.toLowerCase().includes('eligible')){
+        if(
+            status.toLowerCase().includes('eligible') ||
+            status.toLowerCase().includes('pass')
+        ){
 
             badge.className = 'status pass';
 
@@ -494,11 +806,11 @@ async function fetchResult(){
             badge.className = 'status fail';
         }
 
-        document.getElementById('resultWrapper').style.display = 'block';
+        resultWrapper.style.display = 'block';
 
         window.scrollTo({
-            top:document.body.scrollHeight,
-            behavior:'smooth'
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
         });
 
     }
@@ -506,11 +818,71 @@ async function fetchResult(){
 
         loader.style.display = 'none';
 
-        errorBox.innerText = 'Unable to fetch result';
+        errorBox.innerText =
+            'Unable to fetch result';
+
         errorBox.style.display = 'block';
 
         console.error(err);
     }
+}
+
+async function downloadCertificate(){
+
+    const certificate =
+        document.querySelector('.certificate');
+
+    const downloadBtn =
+        document.getElementById('downloadBtn');
+
+    downloadBtn.innerText = 'Generating...';
+
+    downloadBtn.disabled = true;
+
+    try{
+
+        const canvas = await html2canvas(
+            certificate,
+            {
+                scale: 3,
+                useCORS: true,
+                backgroundColor: "#ffffff"
+            }
+        );
+
+        const image =
+            canvas.toDataURL('image/png');
+
+        const link =
+            document.createElement('a');
+
+        const studentName =
+            document
+            .getElementById('candidateName')
+            .innerText
+            .replace(/\s+/g,'_');
+
+        link.href = image;
+
+        link.download =
+            `${studentName}_Scholarship_Certificate.png`;
+
+        link.click();
+
+    }
+    catch(err){
+
+        console.error(err);
+
+        alert(
+            'Failed to generate certificate'
+        );
+    }
+
+    downloadBtn.innerText =
+        'Download Certificate';
+
+    downloadBtn.disabled = false;
 }
 
 </script>
