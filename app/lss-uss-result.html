@@ -856,27 +856,58 @@ async function downloadCertificate(){
     try{
 
         /*
-            Create hidden desktop-sized clone
+            Temporary export container
         */
 
-        const clone = original.cloneNode(true);
+        const exportWrapper =
+            document.createElement('div');
 
-        clone.classList.add('export-certificate');
-
-        clone.style.position = 'fixed';
-        clone.style.left = '-99999px';
-        clone.style.top = '0';
-        clone.style.zIndex = '-1';
-
-        document.body.appendChild(clone);
+        exportWrapper.style.position = 'absolute';
 
         /*
-            Render fixed-width export
+            Keep renderable but outside viewport
+        */
+
+        exportWrapper.style.top = '100vh';
+
+        exportWrapper.style.left = '0';
+
+        exportWrapper.style.width = '1200px';
+
+        exportWrapper.style.zIndex = '-1';
+
+        exportWrapper.style.background = '#ffffff';
+
+        /*
+            Clone certificate
+        */
+
+        const clone =
+            original.cloneNode(true);
+
+        /*
+            Fixed desktop export size
+        */
+
+        clone.style.width = '1200px';
+
+        clone.style.maxWidth = '1200px';
+
+        clone.style.minWidth = '1200px';
+
+        clone.style.margin = '0';
+
+        exportWrapper.appendChild(clone);
+
+        document.body.appendChild(exportWrapper);
+
+        /*
+            Render
         */
 
         const canvas = await html2canvas(clone, {
 
-            scale: 2.5,
+            scale: 2,
 
             useCORS: true,
 
@@ -889,13 +920,13 @@ async function downloadCertificate(){
         });
 
         /*
-            Cleanup clone
+            Cleanup
         */
 
-        document.body.removeChild(clone);
+        document.body.removeChild(exportWrapper);
 
         /*
-            Download
+            Download image
         */
 
         const image =
@@ -915,14 +946,20 @@ async function downloadCertificate(){
         link.download =
             `${studentName}_Scholarship_Certificate.png`;
 
+        document.body.appendChild(link);
+
         link.click();
+
+        document.body.removeChild(link);
 
     }
     catch(err){
 
         console.error(err);
 
-        alert('Failed to generate certificate');
+        alert(
+            'Failed to generate certificate'
+        );
     }
 
     downloadBtn.innerText =
@@ -930,6 +967,7 @@ async function downloadCertificate(){
 
     downloadBtn.disabled = false;
 }
+
 </script>
 
 </body>
