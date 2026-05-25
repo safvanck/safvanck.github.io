@@ -425,6 +425,19 @@ button:hover{
     }
 }
 
+
+.export-certificate{
+
+    width:1200px !important;
+    min-width:1200px !important;
+    max-width:1200px !important;
+
+    transform:none !important;
+
+    margin:0 !important;
+}
+
+
 </style>
 </head>
 
@@ -827,9 +840,10 @@ async function fetchResult(){
     }
 }
 
+
 async function downloadCertificate(){
 
-    const certificate =
+    const original =
         document.querySelector('.certificate');
 
     const downloadBtn =
@@ -841,14 +855,48 @@ async function downloadCertificate(){
 
     try{
 
-        const canvas = await html2canvas(
-            certificate,
-            {
-                scale: 3,
-                useCORS: true,
-                backgroundColor: "#ffffff"
-            }
-        );
+        /*
+            Create hidden desktop-sized clone
+        */
+
+        const clone = original.cloneNode(true);
+
+        clone.classList.add('export-certificate');
+
+        clone.style.position = 'fixed';
+        clone.style.left = '-99999px';
+        clone.style.top = '0';
+        clone.style.zIndex = '-1';
+
+        document.body.appendChild(clone);
+
+        /*
+            Render fixed-width export
+        */
+
+        const canvas = await html2canvas(clone, {
+
+            scale: 2.5,
+
+            useCORS: true,
+
+            backgroundColor: "#ffffff",
+
+            width: 1200,
+
+            windowWidth: 1200
+
+        });
+
+        /*
+            Cleanup clone
+        */
+
+        document.body.removeChild(clone);
+
+        /*
+            Download
+        */
 
         const image =
             canvas.toDataURL('image/png');
@@ -874,9 +922,7 @@ async function downloadCertificate(){
 
         console.error(err);
 
-        alert(
-            'Failed to generate certificate'
-        );
+        alert('Failed to generate certificate');
     }
 
     downloadBtn.innerText =
@@ -884,7 +930,6 @@ async function downloadCertificate(){
 
     downloadBtn.disabled = false;
 }
-
 </script>
 
 </body>
