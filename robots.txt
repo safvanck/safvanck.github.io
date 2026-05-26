@@ -13,6 +13,7 @@ Allow: /public/
 Allow: /
 Allow: /app/
 Allow: /app.index.html
+Allow: /app/index.html
 Allow: /app/contact.html
 Allow: /app/sitemap.xml
 
