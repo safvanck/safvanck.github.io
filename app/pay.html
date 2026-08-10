@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment Page - Safvan.com</title>
+    <style>
+        :root {
+            /* Safvan.com Dark Futuristic Theme Palette Variables */
+            --bg-darker: #0b0f19;
+            --bg-card: #111827;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-glow: #7c3aed; /* Neon Purple Accent */
+            --accent-hover: #6d28d9;
+            --accent-blue: #2563eb;
+            --border-muted: rgba(255, 255, 255, 0.08);
+            --border-radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-darker);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+            /* Subtle background grid pattern reminiscent of tech roadmap designs */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .payment-card {
+            background: var(--bg-card);
+            max-width: 450px;
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 50px -10px rgba(124, 58, 237, 0.15);
+            padding: 48px 36px;
+            text-align: center;
+            border: 1px solid var(--border-muted);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo-area {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .logo-area span {
+            color: var(--accent-glow);
+            text-shadow: 0 0 15px rgba(124, 58, 237, 0.6);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            margin-bottom: 36px;
+            font-weight: 600;
+        }
+
+        /* Tech-style Detection Loader Overlay */
+        .detecting-overlay {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .spinner {
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border-left-color: var(--accent-glow);
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .detecting-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-family: monospace;
+            letter-spacing: 0.05em;
+        }
+
+        /* Payment Buttons Setup */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .pay-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            padding: 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-muted);
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-primary);
+        }
+
+        /* Default Hover States (Inactive Node Default) */
+        .btn-upi:hover {
+            border-color: rgba(167, 139, 250, 0.4);
+            background: rgba(124, 58, 237, 0.05);
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.1);
+        }
+
+        .btn-paypal:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            background: rgba(37, 99, 235, 0.05);
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Smart Highlight Class - Replicates main theme UI CTA buttons */
+        .smart-recommend {
+            border: 1px solid transparent !important;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+        }
+        .smart-recommend.btn-upi {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+            color: #ffffff;
+        }
+        .smart-recommend.btn-upi:hover {
+            background: linear-gradient(135deg, #6d28d9, #4c1d95);
+            box-shadow: 0 4px 25px rgba(124, 58, 237, 0.5);
+        }
+        .smart-recommend.btn-paypal {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
+        }
+        .smart-recommend.btn-paypal:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            box-shadow: 0 4px 25px rgba(37, 99, 235, 0.5);
+        }
+
+        .badge {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+        /* Keep badge readable inside highlighted CTA modules */
+        .smart-recommend .badge {
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .footer-secure {
+            margin-top: 40px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-family: monospace;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="payment-card">
+        <div class="logo-area">Safvan<span>.com</span></div>
+        <div class="subtitle">Secure Billing Node</div>
+
+        <!-- Location Detection Engine Status Box -->
+        <div class="detecting-overlay" id="loader">
+            <div class="spinner"></div>
+            <div class="detecting-text" id="loader-msg">RESOLVING CLIENT GEO-IP...</div>
+        </div>
+
+        <!-- Interface Button Group -->
+        <div class="button-container">
+            <!-- Domestic UPI (India Zone) -->
+            <a href="YOUR_RAZORPAY_LINK_HERE" class="pay-btn btn-upi" id="upi-gate">
+                UPI / NetBanking
+                <span class="badge" id="upi-badge">Domestic Transfer (IN)</span>
+            </a>
+
+            <!-- Global Gateway (International Zone) -->
+            <a href="YOUR_PAYPAL_LINK_HERE" class="pay-btn btn-paypal" id="paypal-gate">
+                PayPal / Cards
+                <span class="badge" id="paypal-badge">International Transfer (Global)</span>
+            </a>
+        </div>
+
+        <div class="footer-secure">
+            // SECURE E2EE CHECKOUT CONNECTION ACTIVE
+        </div>
+    </div>
+
+    <script>
+        // Insert active platform gateway endpoints here
+        const RAZORPAY_URL = "YOUR_RAZORPAY_LINK_HERE";
+        const PAYPAL_URL = "YOUR_PAYPAL_LINK_HERE";
+
+        const loader = document.getElementById('loader');
+        const loaderMsg = document.getElementById('loader-msg');
+        const upiBtn = document.getElementById('upi-gate');
+        const paypalBtn = document.getElementById('paypal-gate');
+
+        // Target localized connection node verification
+        fetch('https://ipapi.co')
+            .then(response => response.json())
+            .then(data => {
+                loader.style.display = 'none'; // Gracefully terminate loading node animations
+                
+                if (data.country_code === 'IN') {
+                    // Activate violet UI gradient highlights for domestic local UPI routing
+                    upiBtn.classList.add('smart-recommend');
+                } else {
+                    // Activate dark blue UI highlights for international global credit systems
+                    paypalBtn.classList.add('smart-recommend');
+                }
+            })
+            .catch(error => {
+                // Tracking block / VPN error exception recovery logic
+                console.error("Geo-tracking pipeline node initialization failed:", error);
+                loaderMsg.innerText = "SELECT INTERFACE NODE LINK BELOW:";
+                const spinner = loader.querySelector('.spinner');
+                if(spinner) spinner.style.display = 'none';
+            });
+    </script>
+
+</body>
+</html>
